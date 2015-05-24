@@ -15,7 +15,7 @@ class HomeController < ApplicationController
 
   def init
   	fACEBOOK_ID = '100003742865040'
-  	fACEBOOK_TOKEN = 'CAAGm0PX4ZCpsBAPCNIUv4yrubwZBwhOdtN8saTyYk1Fw1moryolHIH5eRy7brnjG8iWGVn6FaiuvMa0VAUReMPYuE9FCCH3aF8UzSxHqikgF4yAsL2G9MpvcQYUrTaSJ4EpoANFenqstBF2VZBdTxZB85PrPEzVm05TcJJUabRaqCbZAxGL5OZAQbYKKHuOHoguctEiBoh9Hnl9SFDkmlYotVQeWHT3H4ZD'
+  	fACEBOOK_TOKEN = 'CAAGm0PX4ZCpsBAC4CtsKS7hpW9ZCadpZAue1ItLLQXlAAvpPYm1kaj7BIZA2MZBnxVKo1bhoe6wfUcyQk9L5nscdvXZAmZCYdZA1p8nsYhOU87ZBPyRrbebrgW2eT80A6uwl6JFmUyxsi8YDnCwwJ3AmuJjcO1HeYi94sMexdd0PM26v8FYXjJYsMYY04v7LsWK8rnuswn1XeEJVKKkOJu6shHAjVasAddiMZD'
   	pyro = TinderPyro::Client.new
 	pyro.sign_in(fACEBOOK_ID, fACEBOOK_TOKEN)
 	return pyro
