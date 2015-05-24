@@ -1,2 +1,23 @@
 <h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+
+<%= Time.now.to_i %>
+<p>name:
+<%= @profileData["name"] %> 
+</p>
+<p>age:
+<%= @profileData["age"] %> 
+</p>
+<p>bio:
+<%= @profileData["bio"] %> 
+
+</p>
+<button type="button">Like</button>
+
+<% largeSize = 0 %>
+<% mediumSize = 1%>
+<% smallSize = 2%>
+<% tinySize = 3%> 
+<% @profileData["photos"].each do |photo| %>
+ <img src= <%= photo["processedFiles"][mediumSize]["url"] %> alt="some_text">
+<% end %>
+
