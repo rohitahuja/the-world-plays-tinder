@@ -13,3 +13,24 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+	background: #FAFAFA;
+}
+
+.photo img{
+  border-radius: 1000px;
+}
+
+.pulse{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:500px;
+  height:500px;
+  background:radial-gradient(white 25%, red);
+  transform:translateY(-50%) translateX(-50%);
+  border-radius:1000px;
+  opacity:0.3;
+  border:2px solid red;
+}
