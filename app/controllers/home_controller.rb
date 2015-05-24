@@ -1,21 +1,26 @@
 class HomeController < ApplicationController
+  @@profileData = {}
+  @@pyro
+  @@initialized = false
 
   def index
-  	@pyro = init()
-	@profileData = {}
+    if (!@@initialized)
+      @@pyro = init()
+      @@initialized = true
+    end
+   
+   update()
 
-	update()
-
-	respond_to do |format|
-	  format.html
-	  format.json { render json: @profileData }
-	end
+    respond_to do |format|
+     format.html
+     format.json { render json: @@profileData }
+   end
   end
 
 
   def init
   	fACEBOOK_ID = '100003742865040'
-  	fACEBOOK_TOKEN = 'CAAGm0PX4ZCpsBAAkPoiojgN4IUjONDU1y5JZAkzkcsKcygpvw4s3WspOypvfZCbAuSzHlnQE1TYdCaRUBk6RkEwRRPVnw47DEcWxZCOQRB4mU4qS8bFUb8QUGHLxb2f3b6LwZAgJ7UjElq0WtOk4211CSUdqton2lo4CMWoFf2h4fFtTSjqpty5eJ291s9kZCYhusAsHVOB3hbGk7KVtBF716Oydnvc2EZD'
+  	fACEBOOK_TOKEN = 'CAAGm0PX4ZCpsBAPCNIUv4yrubwZBwhOdtN8saTyYk1Fw1moryolHIH5eRy7brnjG8iWGVn6FaiuvMa0VAUReMPYuE9FCCH3aF8UzSxHqikgF4yAsL2G9MpvcQYUrTaSJ4EpoANFenqstBF2VZBdTxZB85PrPEzVm05TcJJUabRaqCbZAxGL5OZAQbYKKHuOHoguctEiBoh9Hnl9SFDkmlYotVQeWHT3H4ZD'
   	pyro = TinderPyro::Client.new
 	pyro.sign_in(fACEBOOK_ID, fACEBOOK_TOKEN)
 	return pyro
@@ -25,13 +30,13 @@ class HomeController < ApplicationController
  
 
   def update
-  	temphash = @pyro.get_nearby_users
+  	temphash = @@pyro.get_nearby_users
   	#binding.pry
-  	@profileData["name"] = temphash["results"][0]["name"]
+  	@@profileData["name"] = temphash["results"][0]["name"]
   	age = Time.now.year - temphash["results"][0]["birth_date"].byteslice(0,4).to_i
-  	@profileData["age"] = age
-  	@profileData["bio"] = temphash["results"][0]["bio"]
-  	@profileData["photos"] = temphash["results"][0]["photos"][0]["processedFiles"][0]["url"]
+  	@@profileData["age"] = age
+  	@@profileData["bio"] = temphash["results"][0]["bio"]
+  	@@profileData["photos"] = temphash["results"][0]["photos"][0]["processedFiles"][0]["url"]
   end
 
   def like

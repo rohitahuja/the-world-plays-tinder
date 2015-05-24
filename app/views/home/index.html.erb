@@ -35,23 +35,3 @@
  </div>
 </div>
 
-<h1>Home#index</h1>
-
-<%= Time.now.to_i %>
-<p>name:
-<%= @profileData["name"] %> 
-</p>
-<p>age:
-<%= @profileData["age"] %> 
-</p>
-<p>bio:
-<%= @profileData["bio"] %> 
-
-</p>
-<div class="central">
-<button type="button" onclick="loadJSON()">Update Details </button>
-
-<% largeSize = 0 %>
-<% mediumSize = 1%>
-<% smallSize = 2%>
-<% tinySize = 3%> 
