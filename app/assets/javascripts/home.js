@@ -16,16 +16,9 @@ var Person = {
 	// ],
 	add: function(){
 		//var random = this.people[Math.floor(Math.random() * this.people.length)];
-		var cont = true
-		while(cont) {
-			console.log("ayy");
-			$.getJSON("home/index", function(result){
-				if(result){
-					$('#people').append("<div class='person'><img alt='" + result.name + "' src='" + result.photos + "' /><span><strong>" + result.name + "</strong>, " + result.age + "</span></div>");
-					cont = false;
-				}
-			});
-	  }
+		$.getJSON("home/index", function(result){
+			$('#people').append("<div class='person'><img alt='" + result.name + "' src='" + result.photos + "' /><span><strong>" + result.name + "</strong>, " + result.age + "</span></div>");
+	  });
 	}
 };
 
