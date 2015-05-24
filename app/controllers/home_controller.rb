@@ -1,15 +1,20 @@
 class HomeController < ApplicationController
+  @@profileData = {}
+  @@pyro
+  @@initialized = false
 
   def index
-  	@pyro = init()
-	@profileData = {}
+    if (!@@initialized)
+      @@pyro = init()
+      @@initialized = true
+    end
+   
+   update()
 
-	update()
-
-	respond_to do |format|
-	  format.html
-	  format.json { render json: @profileData }
-	end
+    respond_to do |format|
+     format.html
+     format.json { render json: @@profileData }
+   end
   end
 
 
@@ -25,13 +30,13 @@ class HomeController < ApplicationController
  
 
   def update
-  	temphash = @pyro.get_nearby_users
+  	temphash = @@pyro.get_nearby_users
   	#binding.pry
-  	@profileData["name"] = temphash["results"][0]["name"]
+  	@@profileData["name"] = temphash["results"][0]["name"]
   	age = Time.now.year - temphash["results"][0]["birth_date"].byteslice(0,4).to_i
-  	@profileData["age"] = age
-  	@profileData["bio"] = temphash["results"][0]["bio"]
-  	@profileData["photos"] = temphash["results"][0]["photos"][0]["processedFiles"][0]["url"]
+  	@@profileData["age"] = age
+  	@@profileData["bio"] = temphash["results"][0]["bio"]
+  	@@profileData["photos"] = temphash["results"][0]["photos"][0]["processedFiles"][0]["url"]
   end
 
   def like
