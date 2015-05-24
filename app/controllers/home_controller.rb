@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   @@profileData = {}
   @@pyro
   @@initialized = false
+  @@cap = 0
 
   def index
     if (!@@initialized)
@@ -30,6 +31,10 @@ class HomeController < ApplicationController
  
 
   def update
+    if @@cap == 1
+      return
+    end
+    @@cap += 1
   	temphash = @@pyro.get_nearby_users
   	#binding.pry
   	@@profileData["name"] = temphash["results"][0]["name"]
