@@ -3,7 +3,8 @@ class HomeController < ApplicationController
   @@data = {}
   @@pyro
   @@initialized = false
-  @@init_time = 0
+  @@initialized1 = false
+  @@start_time = 0
   @@cap = 0 
 
   def index
@@ -22,7 +23,7 @@ class HomeController < ApplicationController
 
 
   def init
-    @@init_time = Time.now.to_i
+    @@start_time = Time.now.to_i
   	fACEBOOK_ID = '100003742865040'
   	fACEBOOK_TOKEN = 'CAAGm0PX4ZCpsBAC4CtsKS7hpW9ZCadpZAue1ItLLQXlAAvpPYm1kaj7BIZA2MZBnxVKo1bhoe6wfUcyQk9L5nscdvXZAmZCYdZA1p8nsYhOU87ZBPyRrbebrgW2eT80A6uwl6JFmUyxsi8YDnCwwJ3AmuJjcO1HeYi94sMexdd0PM26v8FYXjJYsMYY04v7LsWK8rnuswn1XeEJVKKkOJu6shHAjVasAddiMZD'
   	pyro = TinderPyro::Client.new
@@ -49,11 +50,16 @@ class HomeController < ApplicationController
  end
 
   def update
+    if (Time.now.to_i - @@start_time > 5 || !@@initialized1)
     if @@profileData.length > 3
       @@data = @@profileData.shift
     end
   	populate_data(@@pyro.get_nearby_users)
     @@data = @@profileData.shift
+    @@start_time = Time.now.to_i
+    @@initialized1 = true
+  end
+
   end
 
   def like
