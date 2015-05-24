@@ -48,12 +48,10 @@
 <%= @profileData["bio"] %> 
 
 </p>
-<button type="button">Like</button>
+<div class="central">
+<button type="button" onclick="loadJSON()">Update Details </button>
 
 <% largeSize = 0 %>
 <% mediumSize = 1%>
 <% smallSize = 2%>
 <% tinySize = 3%> 
-<% @profileData["photos"].each do |photo| %>
- <img src= <%= photo["processedFiles"][mediumSize]["url"] %> alt="some_text">
-<% end %>

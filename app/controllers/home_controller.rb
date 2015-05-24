@@ -5,21 +5,24 @@ class HomeController < ApplicationController
 	@profileData = {}
 
 	update()
+
+	respond_to do |format|
+	  format.html
+	  format.json { render json: @profileData }
+	end
   end
 
 
   def init
   	fACEBOOK_ID = '100003742865040'
-  	fACEBOOK_TOKEN = 'CAAGm0PX4ZCpsBAAhZAiYBRuQJjb6kVt4PbnBD9uR0QzetgdZArcUAwzunBpYqtNQxeElx9a9JkDqcZArvFNBO7V7Pu3Aja6EYPmQw3W6VtH2rDpkZCWKvICEFYu8m5H9WkRoxYBZA6SpaE3PJZCibmoXWQnnKs0j8SMkZCuPFeYXXa5U6EQQx3fW7nX5nZBOKdhm3pxue4g5hkkUXq9o4pE1E2lEMyxSemFgZD'
+  	fACEBOOK_TOKEN = 'CAAGm0PX4ZCpsBAAkPoiojgN4IUjONDU1y5JZAkzkcsKcygpvw4s3WspOypvfZCbAuSzHlnQE1TYdCaRUBk6RkEwRRPVnw47DEcWxZCOQRB4mU4qS8bFUb8QUGHLxb2f3b6LwZAgJ7UjElq0WtOk4211CSUdqton2lo4CMWoFf2h4fFtTSjqpty5eJ291s9kZCYhusAsHVOB3hbGk7KVtBF716Oydnvc2EZD'
   	pyro = TinderPyro::Client.new
 	pyro.sign_in(fACEBOOK_ID, fACEBOOK_TOKEN)
 	return pyro
 
   end
 
-  def gethash
-
-  end
+ 
 
   def update
   	temphash = @pyro.get_nearby_users
@@ -28,11 +31,7 @@ class HomeController < ApplicationController
   	age = Time.now.year - temphash["results"][0]["birth_date"].byteslice(0,4).to_i
   	@profileData["age"] = age
   	@profileData["bio"] = temphash["results"][0]["bio"]
-  	@profileData["photos"] = temphash["results"][0]["photos"]
-  	
-
-
-
+  	@profileData["photos"] = temphash["results"][0]["photos"][0]["processedFiles"][0]["url"]
   end
 
   def like
